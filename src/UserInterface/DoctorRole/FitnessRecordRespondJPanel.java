@@ -5,6 +5,7 @@
  */
 package UserInterface.DoctorRole;
 
+import utils.MailUtil;
 import Model.EcoSystem;
 import Model.Enterprise.Enterprise;
 import Model.Organization.DoctorOrganization;
@@ -57,6 +58,7 @@ public class FitnessRecordRespondJPanel extends javax.swing.JPanel {
         respondJTextArea = new javax.swing.JTextArea();
         backJButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        SendMail = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -86,6 +88,14 @@ public class FitnessRecordRespondJPanel extends javax.swing.JPanel {
             }
         });
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 226, -1, -1));
+
+        SendMail.setText("Send Mail");
+        SendMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SendMailActionPerformed(evt);
+            }
+        });
+        add(SendMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 230, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void backJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backJButtonActionPerformed
@@ -130,8 +140,28 @@ public class FitnessRecordRespondJPanel extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void SendMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SendMailActionPerformed
+        // TODO add your handling code here:
+        String patientEmail = "gurujalajaswanth99@gmail.com"; // Fetch dynamically if available
+    String subject = "Doctor Response Notification";
+    String messageContent = "Dear Patient,\n\nYour doctor has responded to your request. " +
+                            "Here is the response:\n\n" +
+                            respondJTextArea.getText() +
+                            "\n\nRegards,\nHealthcare Team";
+
+    try {
+        // Call the MailUtil class to send the email
+        MailUtil.sendEmail(patientEmail, subject, messageContent);
+        JOptionPane.showMessageDialog(null, "Email sent successfully to the patient!");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Failed to send email. Please check your configuration.", "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_SendMailActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SendMail;
     private javax.swing.JButton backJButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
